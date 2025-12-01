@@ -17,7 +17,23 @@ body, html {
     z-index: -10;
     width: 100vw;
     height: 100vh;
-    background: black;
+    background: radial-gradient(ellipse at center, #000 0%, #000 75%);
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* Subtle nebula color wash behind the canvas (keeps DOM minimal) */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -9;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 20% 30%, rgba(80,40,200,0.18), transparent 12%),
+                radial-gradient(ellipse at 80% 70%, rgba(10,120,160,0.12), transparent 14%),
+                radial-gradient(ellipse at 50% 50%, rgba(200,60,140,0.06), transparent 6%);
+    background-blend-mode: screen;
+    filter: blur(60px) saturate(1.05);
 }
 
 /* CONTENT */
@@ -26,18 +42,23 @@ body, html {
     z-index: 10;
     padding: 40px 20px;
     text-align: center;
+    animation: floaty 12s ease-in-out infinite;
+    transform-origin: center;
 }
 
 header h1 {
     font-size: 3rem;
     margin-bottom: 10px;
     color: #ffffff;
+    text-shadow: 0 8px 40px rgba(100,60,220,0.12), 0 2px 8px rgba(0,0,0,0.6);
 }
 
 .tagline {
-    opacity: 0.8;
+    opacity: 0.9;
     font-size: 1.2rem;
     margin-bottom: 50px;
+    color: #dfeaff;
+    text-shadow: 0 1px 8px rgba(100,60,220,0.06);
 }
 
 .section {
@@ -61,14 +82,38 @@ header h1 {
     margin: 25px 0;
     padding: 20px;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(6px);
-    transition: transform 0.3s ease;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    backdrop-filter: blur(6px) saturate(1.05);
+    transition: transform 0.3s ease, box-shadow 0.25s ease;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.03);
 }
 
     .project:hover {
-        transform: translateY(-5px);
+        transform: translateY(-6px) scale(1.01);
     }
+
+/* Vignette for depth */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 45%, rgba(0,0,0,0.65) 100%);
+}
+
+@keyframes floaty {
+    0% { transform: translateY(0) translateZ(0); }
+    50% { transform: translateY(-14px) translateZ(0); }
+    100% { transform: translateY(0) translateZ(0); }
+}
+
+/* Small responsive tweaks */
+@media (max-width: 600px) {
+    header h1 { font-size: 2.2rem; }
+    .section p { font-size: 1rem; }
+}
 
 /* FOOTER */
 footer {
