@@ -4,7 +4,7 @@ body, html {
     padding: 0;
     overflow-x: hidden;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: black;
+    background: transparent;
     color: #e0e0e0;
     height: 100%;
 }
@@ -17,9 +17,9 @@ body, html {
     z-index: -10;
     width: 100vw;
     height: 100vh;
-    background: radial-gradient(ellipse at center, #000 0%, #000 75%);
-    pointer-events: none;
-    will-change: transform;
+    background: black;
+    border: none;
+    opacity: 1 !important;
 }
 
 /* Subtle nebula color wash behind the canvas (keeps DOM minimal) */
@@ -44,6 +44,7 @@ body::before {
     text-align: center;
     animation: floaty 12s ease-in-out infinite;
     transform-origin: center;
+    background: transparent;
 }
 
 header h1 {
