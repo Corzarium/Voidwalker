@@ -82,10 +82,10 @@ function spawnComet() {
 
 function drawStar(p, t) {
     // twinkle alpha
-    const alpha = 0.35 + Math.abs(Math.sin(p.phase + t * p.twinkle)) * 0.65;
+    const alpha = 0.65 + Math.abs(Math.sin(p.phase + t * p.twinkle)) * 0.35;
 
     ctx.save();
-    const glow = p.size * (p.layer === 0 ? 6 : p.layer === 1 ? 8 : 12);
+    const glow = p.size * (p.layer === 0 ? 10 : p.layer === 1 ? 16 : 24);
     ctx.globalCompositeOperation = 'lighter';
     ctx.beginPath();
     ctx.fillStyle = p.color || `rgba(255,255,255,${alpha})`;
@@ -101,9 +101,9 @@ function drawComet(c) {
     ctx.globalCompositeOperation = 'lighter';
     const grad = ctx.createLinearGradient(c.x, c.y, c.x - c.vx * c.length, c.y - c.vy * c.length);
     grad.addColorStop(0, 'rgba(255,255,255,1)');
-    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    grad.addColorStop(1, 'rgba(120,200,255,0.18)');
     ctx.strokeStyle = grad;
-    ctx.lineWidth = 2.2;
+    ctx.lineWidth = 3.2;
     ctx.beginPath();
     ctx.moveTo(c.x, c.y);
     ctx.lineTo(c.x - c.vx * c.length, c.y - c.vy * c.length);
@@ -111,9 +111,9 @@ function drawComet(c) {
     // head
     ctx.beginPath();
     ctx.fillStyle = 'rgba(255,255,255,1)';
-    ctx.shadowColor = 'rgba(255,255,220,0.9)';
-    ctx.shadowBlur = 28;
-    ctx.arc(c.x, c.y, 3.5, 0, Math.PI * 2);
+    ctx.shadowColor = 'rgba(120,200,255,0.9)';
+    ctx.shadowBlur = 38;
+    ctx.arc(c.x, c.y, 5.5, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
 }
