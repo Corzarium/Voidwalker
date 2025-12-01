@@ -4,343 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voidwalker Labs | Project Ghost</title>
-    <style>
-        :root {
-            --gold-primary: #D4AF37;
-            --gold-light: #F7E7CE;
-            --gold-dark: #AA8C2C;
-            --void-black: #050505;
-            --space-blue: #0b0d14;
-            --text-gray: #e0e0e0;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--void-black);
-            color: var(--text-gray);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* --- Starfield Background Animation --- */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* --- Navigation --- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 3rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            background: rgba(5, 5, 5, 0.7);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
-            /* Placeholder styling until you add your file */
-            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
-        }
-
-        .company-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--gold-primary);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .nav-links button {
-            background: transparent;
-            border: 1px solid var(--gold-primary);
-            color: var(--gold-primary);
-            padding: 0.5rem 1.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-        }
-
-        .nav-links button:hover {
-            background: var(--gold-primary);
-            color: var(--void-black);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-        }
-
-        /* --- Hero Section & Black Hole --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        /* The Black Hole Animation */
-        .black-hole-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 3rem;
-        }
-
-        .black-hole-center {
-            width: 150px;
-            height: 150px;
-            background: black;
-            border-radius: 50%;
-            z-index: 10;
-            box-shadow: 
-                0 0 20px 5px rgba(0,0,0,1),
-                inset 0 0 20px rgba(0,0,0,1);
-            position: absolute;
-        }
-
-        .accretion-disk {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: conic-gradient(
-                from 0deg, 
-                transparent 0%, 
-                var(--gold-dark) 10%, 
-                var(--gold-primary) 50%, 
-                var(--gold-light) 80%, 
-                transparent 100%
-            );
-            position: absolute;
-            animation: spin 4s linear infinite;
-            filter: blur(8px);
-            z-index: 5;
-            opacity: 0.8;
-        }
-
-        .accretion-disk::after {
-            content: '';
-            position: absolute;
-            top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border-radius: 50%;
-            background: var(--void-black);
-        }
-
-        .event-horizon-glow {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            position: absolute;
-            box-shadow: 0 0 30px 2px var(--gold-primary);
-            z-index: 9;
-            opacity: 0.5;
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.05); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; box-shadow: 0 0 30px 2px var(--gold-primary); }
-            50% { opacity: 0.7; box-shadow: 0 0 50px 10px var(--gold-primary); }
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #fff, var(--gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-        }
-
-        .tagline {
-            font-size: 1.2rem;
-            color: #888;
-            max-width: 600px;
-            margin-bottom: 2rem;
-        }
-
-        /* --- Project Ghost Section --- */
-        .project-section {
-            padding: 5rem 10%;
-            background: linear-gradient(to bottom, var(--void-black), #0a0a0a);
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        .section-header {
-            border-left: 3px solid var(--gold-primary);
-            padding-left: 1rem;
-            margin-bottom: 3rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: white;
-            text-transform: uppercase;
-        }
-
-        .section-header span {
-            color: var(--gold-primary);
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 2.5rem;
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 2px; height: 100%;
-            background: var(--gold-primary);
-            box-shadow: 0 0 10px var(--gold-primary);
-        }
-
-        .feature-list {
-            list-style: none;
-            margin-top: 1.5rem;
-        }
-
-        .feature-list li {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .feature-list li::before {
-            content: '▹';
-            color: var(--gold-primary);
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
-
-        /* --- CTA / Sponsorship --- */
-        .partnership-section {
-            text-align: center;
-            padding: 6rem 20px;
-            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
-        }
-
-        .partnership-section h3 {
-            font-size: 2rem;
-            color: white;
-            margin-bottom: 1.5rem;
-        }
-
-        .partnership-section p {
-            max-width: 600px;
-            margin: 0 auto 2.5rem auto;
-            color: #aaa;
-        }
-
-        .cta-button {
-            background: var(--gold-primary);
-            color: black;
-            padding: 1rem 3rem;
-            font-size: 1rem;
-            font-weight: 700;
-            border: none;
-            border-radius: 2px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.8rem;
-            color: #555;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .grid-container { grid-template-columns: 1fr; }
-            h1 { font-size: 2.5rem; }
-            .black-hole-container { width: 200px; height: 200px; }
-            .black-hole-center { width: 100px; height: 100px; }
-            .event-horizon-glow { width: 110px; height: 110px; }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+    <!-- Starfield Background -->
     <canvas id="starfield" class="stars"></canvas>
 
+    <!-- Navigation -->
     <nav>
         <div class="logo-container">
             <img src="voidwalkerlabslogo.png" alt="Voidwalker Labs Logo" class="logo-img">
             <span class="company-name">Voidwalker Labs</span>
         </div>
         <div class="nav-links">
-            <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Partner With Us</button>
+            <!-- Updated to Mail Link -->
+            <a href="mailto:corzarium@voidwalkerlabs.com">Partner With Us</a>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="black-hole-container">
-            <div class="black-hole-center"></div>
-            <div class="event-horizon-glow"></div>
+            <!-- 1. The Swirling Outer Ring -->
             <div class="accretion-disk"></div>
+
+            <!-- 2. The Sharp Glowing Event Horizon -->
+            <div class="event-horizon-ring"></div>
+
+            <!-- 3. The Central Void -->
+            <div class="black-hole-center"></div>
+
+            <!-- 4. The Logo on Top -->
+            <img src="voidwalkerlabslogo.png" alt="Voidwalker Labs Logo" class="black-hole-logo">
         </div>
+
         <h1>Pioneering Synthetic Life</h1>
         <p class="tagline">Bridging the gap between generative AI and autonomous virtual presence.</p>
     </section>
 
+    <!-- Project Ghost Detail -->
     <section class="project-section">
         <div class="section-header">
             <span>Flagship Initiative</span>
@@ -360,19 +63,21 @@
             <div class="project-card">
                 <h3 style="color:white; margin-bottom: 1rem;">Core Capabilities</h3>
                 <ul class="feature-list">
-                    <li><strong>Autonomous Reasoning:</strong> Powered by custom-tuned Qwen3-VL architecture.</li>
-                    <li><strong>Real-Time Perception:</strong> Visual analysis of desktop and virtual environments.</li>
-                    <li><strong>Dynamic Persona:</strong> Adaptive personality engine that evolves through interaction.</li>
-                    <li><strong>High-Fidelity Presence:</strong> Low-latency VTuber integration for streaming applications.</li>
+                    <li><strong>Autonomous Reasoning: </strong>  Powered by custom-tuned Qwen3-VL architecture.</li>
+                    <li><strong>Real-Time Perception: </strong>  Visual analysis of desktop and virtual environments.</li>
+                    <li><strong>Dynamic Persona: </strong>  Adaptive personality engine that evolves through interaction.</li>
+                    <li><strong>High-Fidelity Presence: </strong>  Low-latency integration for streaming applications.</li>
                 </ul>
             </div>
         </div>
     </section>
 
+    <!-- Sponsorship CTA -->
     <section class="partnership-section" id="contact">
         <h3>Accelerate the Future</h3>
         <p>Voidwalker Labs is currently accepting strategic partnerships and grant opportunities to expand the computational framework of Project Ghost. Join us in defining the next generation of AI.</p>
-        <button class="cta-button">Inquire About Partnership</button>
+        <!-- Updated to Mail Link -->
+        <a href="mailto:corzarium@voidwalkerlabs.com" class="cta-button">Inquire About Partnership</a>
     </section>
 
     <footer>
@@ -380,7 +85,7 @@
     </footer>
 
     <script>
-        // Simple Starfield Animation script
+        // Starfield Animation
         const canvas = document.getElementById('starfield');
         const ctx = canvas.getContext('2d');
 
@@ -415,8 +120,6 @@
                 ctx.beginPath();
                 ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
                 ctx.fill();
-                
-                // Move stars slowly upward to simulate space travel or floating
                 star.y -= star.speed;
                 if (star.y < 0) {
                     star.y = height;
