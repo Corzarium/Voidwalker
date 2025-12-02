@@ -4,6 +4,7 @@
     --gold-dark: #AA8C2C;
     --void-black: #000000;
     --text-gray: #e0e0e0;
+    --twitch-purple: #9146FF; /* Added for the Twitch section */
 }
 
 * {
@@ -11,6 +12,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    scroll-behavior: smooth; /* smooth scrolling for anchor links */
 }
 
 body {
@@ -42,7 +44,7 @@ nav {
     top: 0;
     z-index: 100;
     backdrop-filter: blur(10px);
-    background: rgba(5, 5, 5, 0.7);
+    background: rgba(5, 5, 5, 0.85); /* Slightly darker for better text readability */
     border-bottom: 1px solid rgba(212, 175, 55, 0.1);
 }
 
@@ -66,25 +68,37 @@ nav {
     text-transform: uppercase;
 }
 
-/* Updated to target BOTH Link Tags and Button Tags */
-.nav-links a,
-.nav-links button {
-    display: inline-block;
-    background: transparent;
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+/* Standard Nav Links (Text Only) */
+.nav-links a {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--gold-primary);
+}
+
+/* Special Styling for the Partner Button in Nav */
+.nav-links a.highlight-btn {
     border: 1px solid var(--gold-primary);
     color: var(--gold-primary);
     padding: 0.5rem 1.5rem;
-    cursor: pointer;
-    font-weight: 600;
+    border-radius: 2px;
     transition: all 0.3s ease;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    text-decoration: none; /* Removes underline */
 }
 
-.nav-links a:hover,
-.nav-links button:hover {
+.nav-links a.highlight-btn:hover {
     background: var(--gold-primary);
     color: var(--void-black);
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
@@ -114,7 +128,6 @@ nav {
     margin-bottom: 2rem;
 }
 
-/* 1. The Void */
 .black-hole-center {
     width: 300px;
     height: 300px;
@@ -125,7 +138,6 @@ nav {
     box-shadow: inset 0 0 40px #000;
 }
 
-/* 2. The Logo */
 .black-hole-logo {
     position: absolute;
     z-index: 20;
@@ -138,7 +150,6 @@ nav {
     animation: float 6s ease-in-out infinite;
 }
 
-/* 3. The Event Horizon */
 .event-horizon-ring {
     position: absolute;
     width: 306px;
@@ -152,7 +163,6 @@ nav {
     filter: blur(1px);
 }
 
-/* 4. The Accretion Disk */
 .accretion-disk {
     position: absolute;
     width: 100%;
@@ -221,11 +231,19 @@ h1 {
     z-index: 30;
 }
 
-/* --- Project Ghost Section --- */
-.project-section {
-    padding: 5rem 10%;
-    background: linear-gradient(to bottom, #050505, #0a0a0a);
+/* --- Content Sections --- */
+.content-section {
+    padding: 6rem 10%;
     border-top: 1px solid rgba(212, 175, 55, 0.1);
+    position: relative;
+}
+
+.bg-dark {
+    background: linear-gradient(to bottom, #050505, #0a0a0a);
+}
+
+.bg-alt {
+    background: linear-gradient(to bottom, #0a0a0a, #111);
 }
 
 .section-header {
@@ -253,7 +271,21 @@ h1 {
     align-items: center;
 }
 
-.project-card {
+/* Layout utility to flip text/card order */
+.reverse-layout .grid-container {
+    direction: rtl; /* simple trick to flip columns, reset text direction in children */
+}
+.reverse-layout .grid-container > * {
+    direction: ltr;
+}
+
+.text-block p {
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+    color: #ccc;
+}
+
+.highlight-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 2.5rem;
@@ -262,7 +294,7 @@ h1 {
     overflow: hidden;
 }
 
-.project-card::before {
+.highlight-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0; width: 2px; height: 100%;
@@ -288,11 +320,38 @@ h1 {
     font-size: 1.2rem;
 }
 
-/* --- CTA / Sponsorship --- */
+/* --- Twitch Section Specifics --- */
+.twitch-card::before {
+    background: var(--twitch-purple);
+    box-shadow: 0 0 10px var(--twitch-purple);
+}
+
+.twitch-btn {
+    display: inline-block;
+    background: var(--twitch-purple);
+    color: white;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+
+.twitch-btn:hover {
+    background: #a970ff;
+    box-shadow: 0 0 20px rgba(145, 70, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* --- Sponsorship CTA --- */
 .partnership-section {
     text-align: center;
     padding: 6rem 20px;
     background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+    border-top: 1px solid rgba(255,255,255,0.05);
 }
 
 .partnership-section h3 {
@@ -307,7 +366,6 @@ h1 {
     color: #aaa;
 }
 
-/* Updated to target BOTH Link Tags and Button Tags */
 .cta-button {
     display: inline-block;
     background: var(--gold-primary);
@@ -321,7 +379,7 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: transform 0.2s, box-shadow 0.2s;
-    text-decoration: none; /* Removes underline */
+    text-decoration: none;
 }
 
 .cta-button:hover {
@@ -339,7 +397,12 @@ footer {
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+    .nav-links { display: none; /* In a real app we'd add a hamburger menu */ }
+    nav { justify-content: center; }
+    
     .grid-container { grid-template-columns: 1fr; }
+    .reverse-layout .grid-container { direction: ltr; } /* Stack normally on mobile */
+    
     h1 { font-size: 2.5rem; }
     
     .black-hole-container { width: 320px; height: 320px; }
